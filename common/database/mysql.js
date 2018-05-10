@@ -5,7 +5,7 @@ var config = require('../config/config.js')[process.env.NODE_ENV || 'development
 const mysqlService = {
   generatePool : function() {
     this.pool = mysql.createPool({
-      connectionLimit : 10,
+      connectionLimit : config.connection_limit,
       host     : config.db_host,
       user     : config.db_user,
       password : config.db_password,

@@ -5,6 +5,7 @@ module.exports = {
     "db_password" : "mypassword",
     "db_port"     : 3306,
     "db_database" : "delieve",
+    "connection_limit" : 10
   },
   "production" : {
     "db_host"     : process.env.RDS_HOSTNAME,
@@ -12,5 +13,6 @@ module.exports = {
     "db_password" : process.env.RDS_PASSWORD,
     "db_port"     : process.env.RDS_PORT,
     "db_database" : process.env.RDS_DB_NAME,
+    "connection_limit" : process.env.CONNECTION_LIMIT
   }
 };
