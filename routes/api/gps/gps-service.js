@@ -4,7 +4,8 @@ mysqPool.generatePool();
 
 const gpsService = {
   gpsById : function(req, res) {
-    return gpsQuery.gpsById(res, mysqPool, 2);
+    const id = req.params.id;
+    return gpsQuery.gpsById(res, mysqPool, id);
   }
 }
 module.exports = gpsService;
