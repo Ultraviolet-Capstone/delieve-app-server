@@ -2,7 +2,7 @@ var mysql = require('promise-mysql');
 var config = require('../config/config.js')[process.env.NODE_ENV || 'development'];
 
 
-mysqlService = {
+const mysqlService = {
   generatePool : function() {
     this.pool = mysql.createPool({
       connectionLimit : 10,
