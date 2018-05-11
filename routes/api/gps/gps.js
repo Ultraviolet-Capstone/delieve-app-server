@@ -2,14 +2,15 @@ var express = require('express');
 var gpsService = require('./gps-service');
 var router = express.Router();
 
+
 router.get('/:id', function(req, res, next){
   gpsService.gpsById(req, res)
   .then(result => {
-    res.json(result);
+    res.status(200).json(result);
   })
+  .catch(err => {
+    res.status(500).send(err);
+  });
 });
 
-router.get('', function(req, res, next){
-  res.send('1');
-});
 module.exports = router;

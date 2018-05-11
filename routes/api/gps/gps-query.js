@@ -8,9 +8,11 @@ const gpsQuery = {
     return pool.query(res, query, [id])
     .then(result => {
       if (result.length === 0) {
-        res.status(500).send(errorMessage.NO_ITEM_SEARCH);
+        return Promise.reject(errorMessage.NO_ITEM_SEARCH)
       }
-      return result[0];
+      else { 
+        return Promise.resolve(result[0]);
+      }
     })
   }
 }
