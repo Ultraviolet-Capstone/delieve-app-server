@@ -22,6 +22,7 @@ const apiRequestBody = {
   beginTime: new Date(),
   finishTime: new Date((new Date).getTime() + 2222),
   senderId: 22,
+  recieverPhoneNumber: '010-1111-1111',
   stuff: {
     name: '5 bucks',
     size: 'S',

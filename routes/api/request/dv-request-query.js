@@ -6,6 +6,7 @@ const dvRequestQuery = {
         ?, ?, ?,
         ?, ?, ?, 
         ?,
+        ?,
         ?, ?,
         ?, ?, ?, ?
     )`;
@@ -14,6 +15,7 @@ const dvRequestQuery = {
       dvRequest.beginLocation.address, dvRequest.beginLocation.gps.latitude, dvRequest.beginLocation.gps.longitude,
       dvRequest.finishLocation.address, dvRequest.finishLocation.gps.latitude, dvRequest.finishLocation.gps.longitude,
       dvRequest.senderId,
+      dvRequest.recieverPhoneNumber,
       dvRequest.beginTime, dvRequest.finishTime,
       dvRequest.stuff.name, dvRequest.stuff.size, dvRequest.stuff.weight, dvRequest.stuff.stuffCode
     ];
