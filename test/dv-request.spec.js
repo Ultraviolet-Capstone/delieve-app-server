@@ -55,10 +55,10 @@ const apiRequestBody2 = {
 }
 
 
-describe('POST /api/uv-request', () => {  
+describe('POST /api/request', () => {  
   it('should respond with code 200', (done) => {
     request(app)
-      .post('/api/uv-request')
+      .post('/api/request')
       .send(apiRequestBody)
       .expect(200)
       .end((err, res) => {
@@ -71,10 +71,10 @@ describe('POST /api/uv-request', () => {
   });
 });
 
-describe('POST /api/uv-request', () => {  
+describe('POST /api/request', () => {  
   it('should respond with code 500', (done) => {
     request(app)
-      .post('/api/uv-request')
+      .post('/api/request')
       .send(apiRequestBody2)
       .expect(500)
       .end((err, res) => {

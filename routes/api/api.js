@@ -2,10 +2,10 @@ var express = require('express');
 var router = express.Router();
 
 // router
-var gps = require('./gps/gps');
-var uvRequest = require('./uv-request/uv-request');
+var dvGPS = require('./gps/dv-gps');
+var dvRequest = require('./request/dv-request');
 
-router.use('/gps', gps);
-router.use('/uv-request', uvRequest);
+router.use('/gps', dvGPS);
+router.use('/request', dvRequest);
 
 module.exports = router;

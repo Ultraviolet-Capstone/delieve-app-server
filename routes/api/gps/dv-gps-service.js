@@ -1,11 +1,11 @@
-var gpsQuery = require('./gps-query');
+var dvGPSQuery = require('./dv-gps-query');
 var mysqPool = require('../../../common/database/mysql');
 mysqPool.generatePool();
 
-const gpsService = {
+const dvGPSService = {
   gpsById : function(req, res) {
     const id = req.params.id;
-    return gpsQuery.gpsById(res, mysqPool, id);
+    return dvGPSQuery.gpsById(res, mysqPool, id);
   }
 }
-module.exports = gpsService;
+module.exports = dvGPSService;

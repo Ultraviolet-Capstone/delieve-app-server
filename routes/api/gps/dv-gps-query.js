@@ -1,9 +1,9 @@
 var errorMessage = require('../../../common/error/error-message');
 
-const gpsQuery = {
+const dvGPSQuery = {
   gpsById : function(res, pool, id) {
     const query = `SELECT *
-                   FROM gps
+                   FROM dv_gps
                    WHERE id=?`;
     return pool.query(res, query, [id])
     .then(result => {
@@ -16,4 +16,4 @@ const gpsQuery = {
     })
   }
 }
-module.exports = gpsQuery;
+module.exports = dvGPSQuery;
