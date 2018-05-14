@@ -1,28 +1,28 @@
 var errorMessage = require('../../../common/error/error-message')
 
 const dvRequestQuery = {
-    insertRequest : (res, pool, dvRequest) => {
-        const query = `CALL ADD_DV_REQUEST(
-            ?, ?, ?,
-            ?, ?, ?, 
-            ?,
-            ?, ?,
-            ?, ?, ?, ?
-        )`;
+  insertRequest : (res, pool, dvRequest) => {
+    const query = `CALL ADD_DV_REQUEST(
+        ?, ?, ?,
+        ?, ?, ?, 
+        ?,
+        ?, ?,
+        ?, ?, ?, ?
+    )`;
 
-        const parameter = [
-            dvRequest.beginLocation.address, dvRequest.beginLocation.gps.latitude, dvRequest.beginLocation.gps.longitude,
-            dvRequest.finishLocation.address, dvRequest.finishLocation.gps.latitude, dvRequest.finishLocation.gps.longitude,
-            dvRequest.senderId,
-            dvRequest.beginTime, dvRequest.finishTime,
-            dvRequest.stuff.name, dvRequest.stuff.size, dvRequest.stuff.weight, dvRequest.stuff.stuffCode
-        ];
+    const parameter = [
+      dvRequest.beginLocation.address, dvRequest.beginLocation.gps.latitude, dvRequest.beginLocation.gps.longitude,
+      dvRequest.finishLocation.address, dvRequest.finishLocation.gps.latitude, dvRequest.finishLocation.gps.longitude,
+      dvRequest.senderId,
+      dvRequest.beginTime, dvRequest.finishTime,
+      dvRequest.stuff.name, dvRequest.stuff.size, dvRequest.stuff.weight, dvRequest.stuff.stuffCode
+    ];
 
-        if (parameter.includes(undefined)) {
-            return Promise.reject(errorMessage.INSERT_ERROR);
-        } 
-        return pool.query(res, query, parameter)
-    }
+    if (parameter.includes(undefined)) {
+      return Promise.reject(errorMessage.INSERT_ERROR);
+    } 
+    return pool.query(res, query, parameter)
+  }
 }
 
 module.exports = dvRequestQuery;
