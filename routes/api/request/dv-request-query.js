@@ -1,7 +1,7 @@
 var errorMessage = require('../../../common/error/error-message')
 
 const dvRequestQuery = {
-  insertRequest : (res, pool, dvRequest) => {
+  insertRequest : (pool, dvRequest) => {
     const query = `CALL ADD_DV_REQUEST(
         ?, ?, ?,
         ?, ?, ?, 
@@ -23,7 +23,7 @@ const dvRequestQuery = {
     if (parameter.includes(undefined)) {
       return Promise.reject(errorMessage.INSERT_ERROR);
     } 
-    return pool.query(res, query, parameter)
+    return pool.query(query, parameter)
   }
 }
 

@@ -4,7 +4,7 @@ var router = express.Router();
 
 
 router.get('/:id', function(req, res, next){
-  dvGPSService.gpsById(req, res)
+  dvGPSService.gpsById(req)
     .then(result => {
       res.status(200).json(result);
     })

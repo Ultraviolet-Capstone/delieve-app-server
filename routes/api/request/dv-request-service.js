@@ -3,9 +3,9 @@ var mysqlPool = require('../../../common/database/mysql');
 mysqlPool.generatePool();
 
 const dvRequestService = {
-  insertRequest: function (req, res) {
+  insertRequest: function (req) {
     const dvRequest = req.body;
-    return dvRequestQuery.insertRequest(res, mysqlPool, dvRequest);
+    return dvRequestQuery.insertRequest(mysqlPool, dvRequest);
   }
 }
 module.exports = dvRequestService;

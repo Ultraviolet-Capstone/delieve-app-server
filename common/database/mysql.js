@@ -13,7 +13,7 @@ const mysqlService = {
       database : config.db_database,
     });
   },
-  query : function(res, query, arr) {
+  query : function(query, arr) {
     return this.pool.query(query, arr)
   }
 }

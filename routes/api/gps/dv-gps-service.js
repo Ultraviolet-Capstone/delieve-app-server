@@ -3,9 +3,9 @@ var mysqPool = require('../../../common/database/mysql');
 mysqPool.generatePool();
 
 const dvGPSService = {
-  gpsById : function(req, res) {
+  gpsById : function(req) {
     const id = req.params.id;
-    return dvGPSQuery.gpsById(res, mysqPool, id);
+    return dvGPSQuery.gpsById(mysqPool, id);
   }
 }
 module.exports = dvGPSService;

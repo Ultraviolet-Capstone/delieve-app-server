@@ -3,7 +3,7 @@ var dvRequestService = require('./dv-request-service');
 var router = express.Router();
 
 router.post('/', (req, res, next) => {
-  dvRequestService.insertRequest(req, res)
+  dvRequestService.insertRequest(req)
     .then(result => {
       res.status(200).send();
     })
