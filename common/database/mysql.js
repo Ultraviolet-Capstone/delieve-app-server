@@ -15,9 +15,6 @@ const mysqlService = {
   },
   query : function(res, query, arr) {
     return this.pool.query(query, arr)
-    .catch(err => {
-      res.json(err);
-    })
   }
 }
 
