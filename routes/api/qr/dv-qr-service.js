@@ -5,12 +5,14 @@ mysqlPool.generatePool();
 
 const dvQRService = {
   getQRURL: function (matchingId, status) { 
-
-    console.log(matchingId + status)
-
-    dvQRQuery.selectMatchingByIdStatus(mysqlPool, matchingId, status)
-      .then(result => { 
-        return Promise.resolve('/api/qr/'+result.status+'-'+result.id);
+    return dvQRQuery.selectMatchingByIdStatus(mysqlPool, matchingId, status)
+      .then(result => {
+        const { id, status } = result;
+        const _result = {
+          id : id,
+          url : '/api/qr/'+ status +'-'+ id
+        }
+        return Promise.resolve(_result);
       })
   }
 }

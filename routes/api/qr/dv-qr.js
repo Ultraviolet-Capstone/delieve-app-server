@@ -5,16 +5,13 @@ var router = express.Router();
 
 router.get('/', (req, res, next) => {
 
-  const query = req.query;
+  const {id, status} = req.query;
 
-  console.log (query.id);
-  dvQRService.getQRURL(query.id, query.status)
-    .then(result => { 
-      console.log(result)
+  dvQRService.getQRURL(id, status)
+    .then(result => {
       res.status(200).json(result);
     })
     .catch(err => {
-      console.log(err)
       res.status(500).send(err);
     })
 

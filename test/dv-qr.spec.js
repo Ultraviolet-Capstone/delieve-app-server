@@ -15,7 +15,6 @@ describe('get /api/qr?'+FIXTURE.QR_READY_GET, () => {
       .expect(200)
       .end((err, res) => {
         if (err) {
-          console.log(res)
           done(err);
           return;
         }

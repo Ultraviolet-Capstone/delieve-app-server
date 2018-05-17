@@ -9,12 +9,14 @@ const dvQRQuery = {
     `;
 
     const parameters = [matchingId, status];
-    console.log(parameters);
     if (parameters.includes(undefined)) {
       return Promise.reject(errorMessage.INSERT_ERROR);
     } 
-    console.log(query)
     return pool.query(query, parameters)
+      .then(result => {
+        if (result.length === 0) return Promise.reject(errorMessage.NO_ITEM_SEARCH);
+        return result[0];
+      })
   }
 }
 
