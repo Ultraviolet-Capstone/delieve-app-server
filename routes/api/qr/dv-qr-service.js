@@ -8,13 +8,10 @@ mysqlPool.generatePool();
 const dvQRService = {
   getQRURL: function (matchingId, status) { 
     return dvQRQuery.selectMatchingByIdStatus(mysqlPool, matchingId, status)
-      .then(result => {
-        const { id, status } = result;
-        const _result = {
-          id : id,
-          url : '/api/qr/'+ status +'-'+ id
-        }
-        return Promise.resolve(_result);
+      .then(result => { 
+        var originString = ([result.id , result.dv_request_id , result.deliver_id , result.status , result.time_log_id].join(''));
+        var hashValue = crypto.createHash('md5').update(originString).digest("hex");
+        return Promise.resolve({ id: parseInt(matchingId), hashValue: hashValue });
       })
   },
   postQRURL: function (matchingId, hashValue, status) {

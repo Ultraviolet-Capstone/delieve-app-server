@@ -6,7 +6,7 @@ import app from '../bin/www';
 import errorMessage from '../common/error/error-message';
 
 const FIXTURE = {
-  QR_READY_GET: 'id=1&status=READY',
+  QR_READY_GET: 'id=2&status=READY',
   QR_READY_POST:
     {
       id: 2,
@@ -22,7 +22,19 @@ const FIXTURE = {
 }
 
 describe('get /api/qr?'+FIXTURE.QR_READY_GET, () => {  
-  it('should respond with url "/api/qr/READY-1"', (done) => {
+  before(() => {
+    var pool = require('../common/database/mysql'); 
+    pool.generatePool();
+    const query = `
+    UPDATE dv_matching m
+    SET m.status = ?
+    WHERE m.id = ?; 
+    `;
+
+    const parameters = ['READY', 2];
+    return pool.query(query, parameters)
+  })
+  it('should respond with id == 2 and hash value == "435a4625fa355b578980eae0027f0028"', (done) => {
     request(app)
       .get('/api/qr?'+FIXTURE.QR_READY_GET)
       .expect(200)
@@ -32,8 +44,8 @@ describe('get /api/qr?'+FIXTURE.QR_READY_GET, () => {
           return;
         }
 
-        expect(res.body.id).to.equal(1);
-        expect(res.body.url).to.equal('/api/qr/READY-1');
+        expect(res.body.id).to.equal(2);
+        expect(res.body.hashValue).to.equal('435a4625fa355b578980eae0027f0028');
         done();
       });
   });

@@ -10,12 +10,15 @@ const dvQRQuery = {
 
     const parameters = [matchingId, status];
     if (parameters.includes(undefined)) {
-      return Promise.reject(errorMessage.INSERT_ERROR);
+      return Promise.reject({ status: 500, message: errorMessage.INSERT_ERROR });
     } 
     return pool.query(query, parameters)
       .then(result => {
         if (result.length === 0) return Promise.reject({ status: 404, message: errorMessage.NO_ITEM_SEARCH });
         return result[0];
+      })
+      .catch(err => {
+        return Promise.reject({ status: 500, message: err.Error});
       })
   },
 
