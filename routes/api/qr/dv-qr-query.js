@@ -14,9 +14,29 @@ const dvQRQuery = {
     } 
     return pool.query(query, parameters)
       .then(result => {
-        if (result.length === 0) return Promise.reject(errorMessage.NO_ITEM_SEARCH);
+        if (result.length === 0) return Promise.reject({ status: 404, message: errorMessage.NO_ITEM_SEARCH });
         return result[0];
       })
+  },
+
+  updateMatchingStatus: (pool, matchingId, status) => {
+    const query = `
+    UPDATE dv_matching m
+    SET m.status = ?
+    WHERE m.id = ?; 
+    `;
+
+    const parameters = [status, matchingId];
+    if (parameters.includes(undefined)) {
+      return Promise.reject(errorMessage.INSERT_ERROR);
+    } 
+    return pool.query(query, parameters)
+      .then(result => {
+        return Promise.resolve(status);
+      })
+      .catch(err => {
+        return Promise.reject({ status: 500, messsage: errorMessage.UPDATE_ERROR });
+      }); 
   }
 }
 
