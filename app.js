@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var api = require('./routes/api/api');
+var auth = require('./routes/auth/auth');
 
 var app = express();
 
@@ -18,6 +19,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.enable('trust proxy')
 
+app.use('/auth', auth)
 app.use('/api', api);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
