@@ -1,4 +1,4 @@
-var dvQRQuery = require('./dv-qr-query');
+var dvQRQuery = require('../../../models/dv-qr-query');
 var mysqlPool = require('../../../common/database/mysql');
 var errorMessage = require('../../../common/error/error-message')
 var crypto = require('crypto');

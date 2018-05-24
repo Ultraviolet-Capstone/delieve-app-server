@@ -1,4 +1,4 @@
-var errorMessage = require('../../../common/error/error-message')
+var errorMessage = require('../common/error/error-message')
 
 const dvRequestQuery = {
   insertRequest : (pool, dvRequest) => {

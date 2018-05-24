@@ -1,4 +1,4 @@
-var dvGPSQuery = require('./dv-gps-query');
+var dvGPSQuery = require('../../../models/dv-gps-query');
 var mysqPool = require('../../../common/database/mysql');
 mysqPool.generatePool();
 

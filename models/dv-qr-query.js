@@ -1,4 +1,4 @@
-var errorMessage = require('../../../common/error/error-message')
+var errorMessage = require('../common/error/error-message')
 
 const dvQRQuery = {
   selectMatchingByIdStatus : (pool, matchingId, status) => {

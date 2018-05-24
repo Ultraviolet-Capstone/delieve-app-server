@@ -1,4 +1,4 @@
-var dvRequestQuery = require('./dv-request-query');
+var dvRequestQuery = require('../../../models/dv-request-query');
 var mysqlPool = require('../../../common/database/mysql');
 mysqlPool.generatePool();
 
