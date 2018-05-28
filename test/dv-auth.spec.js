@@ -50,7 +50,7 @@ describe('GET /auth/admin/token?userName=admin_123&password=admin&grantType=pass
           done(err);
           return;
         }
-        expect(res.body.message).to.equal(errorMessage.NO_ITEM_SEARCH);
+        expect(res.body.message).to.equal(errorMessage.WRONG_ID);
         done();
       });
   });
