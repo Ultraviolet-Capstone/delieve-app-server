@@ -1,22 +1,15 @@
 var errorMessage = require('../common/error/error-message');
 
 const delivererQuery = {
-  updateDelivererStats: function(pool, delivererId, status) {
+  updateDelivererStats: function(pool, delivererId, status, latitude, longitude) {
     const query = `
-    UPDATE dv_deliverer d
-    SET d.status = ?
-    WHERE 
-    d.id = ?
-    and d.status != ?
+    CALL UPDATE_DELIVERER_STATUS(?, ?, ?, ?)
     `;
-    const parameters = [status, delivererId, status];
+    const parameters = [status, delivererId, latitude, longitude];
 
     return pool.query(query, parameters)
-      .then(result => {
-        if (result.affectedRows == 0) {
-          return Promise.reject({Error: errorMessage.UPDATE_ERROR});
-        }
-        return Promise.resolve(result);
+      .catch(err => {
+        return Promise.reject(errorMessage.UPDATE_ERROR);
       });
   }
 }

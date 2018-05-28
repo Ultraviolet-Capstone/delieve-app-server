@@ -4,13 +4,13 @@ mysqPool.generatePool();
 
 const dvMatchingService = {
   updateDelivererStatus: function(req) {
-    var {status, delivererId} = req.body;
-    return dvDeliverergQuery.updateDelivererStats(mysqPool, delivererId, status)
+    var {status, delivererId, latitude, longitude} = req.body;
+    return dvDeliverergQuery.updateDelivererStats(mysqPool, delivererId, status, latitude, longitude)
       .then (result => {
-        return Promise.resolve({ status: status, result: result }); 
+        return Promise.resolve({ status: status, latitude: latitude, longitude: longitude }); 
       })
       .catch(err => {
-        return Promise.reject({ status: 500, message: err.Error });
+        return Promise.reject({ status: 500, message: err });
       })
   },
 }
