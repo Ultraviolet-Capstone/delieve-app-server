@@ -49,6 +49,31 @@ const authService = {
         return Promise.reject({status : 403, message: errorMessage.PERMISION_DENY});
       }); 
   },
+  registerUser: function(req) {
+    const {
+      name,
+      phone,
+      email,
+      birthday,
+      token,
+      tokenProvider,
+      providerSelfiURL,
+      providerNickname,
+      gender,
+    } = req.body;
+
+    return userQuery.insertUser(mysqlPool,
+      name,
+      phone,
+      email,
+      birthday,
+      token,
+      tokenProvider,
+      providerSelfiURL,
+      providerNickname,
+      gender
+    ) 
+  },
 }
 
 function generateSignObj(userName, isAdmin) {

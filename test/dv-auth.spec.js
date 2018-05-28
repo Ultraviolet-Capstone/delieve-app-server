@@ -104,3 +104,68 @@ describe('GET /auth/user/login?token=1', () => {
       });
   });
 });
+
+
+describe('POST /auth/user/register', () => {  
+  before(() => {
+    var pool = require('../common/database/mysql');
+    pool.generatePool();
+    const query = `
+    DELETE FROM dv_user WHERE token = ?;
+    `;
+
+    const parameters = [1111111];
+    return pool.query(query, parameters)
+  })
+  it('should respond status is 200', (done) => {
+    request(app)
+      .post('/auth/user/register')
+      .send({
+        name: 'HYUNSU',
+        phone: '010-1111-1111',
+        email: 'dogfooter219@gmail.com',
+        birthday: 960219,
+        token: 1111111,
+        tokenProvider: 'kakao',
+        providerSelfiURL: '/sefi',
+        providerNickname: 'hyunsu_',
+        gender: 'male'
+      })
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          done(err);
+          return;
+        }
+        done();
+      });
+  });
+}); 
+
+
+// duplicated token
+describe('POST /auth/user/register', () => {  
+  it('should respond status is 500 this is duplicated data', (done) => {
+    request(app)
+      .post('/auth/user/register')
+      .send({
+        name: 'HYUNSU',
+        phone: '010-1111-1111',
+        email: 'dogfooter219@gmail.com',
+        birthday: 960219,
+        token: 1111111,
+        tokenProvider: 'kakao',
+        providerSelfiURL: '/sefi',
+        providerNickname: 'hyunsu_',
+        gender: 'male'
+      })
+      .expect(500)
+      .end((err, res) => {
+        if (err) {
+          done(err);
+          return;
+        }
+        done();
+      });
+  });
+}); 

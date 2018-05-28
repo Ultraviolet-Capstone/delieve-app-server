@@ -23,4 +23,14 @@ router.get('/user/login', (req, res) => {
     });
 });
 
+router.post('/user/register', (req, res) => {
+  authService.registerUser(req)
+    .then(result => {
+      res.status(200).json();
+    })
+    .catch(err => {
+      res.status(err.status).send(err.message);
+    });
+});
+
 module.exports = router;
