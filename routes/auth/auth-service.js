@@ -3,6 +3,7 @@ var jwt = require('jsonwebtoken')
 var errorMessage = require('../../common/error/error-message');
 var common = require('../../common/common');
 var adminQuery = require('../../models/dv-admin-query')
+var userQuery = require('../../models/dv-user-query')
 
 var mysqlPool = require('../../common/database/mysql');
 mysqlPool.generatePool();
@@ -27,6 +28,26 @@ const authService = {
         if(err.message) return Promise.reject(err);
         return Promise.reject({status : 403, message: errorMessage.PERMISION_DENY});
       });
+  },
+  loginUserByToken: function(req) {
+    const { 
+      token, 
+    } = req.query;
+
+    return userQuery.findUserByTokne(mysqlPool, token)
+      .then(rows => {
+        if (rows.length == 0) {
+          return Promise.reject({ status: 404, message: errorMessage.NO_ITEM_SEARCH})
+        } 
+        return jwt.sign(generateSignObj(token, false), secretKey, {expiresIn: '1d'})
+      })
+      .then(jwtToken => {
+        return Promise.resolve({ accessToken: jwtToken });
+      })
+      .catch(err => {
+        if(err.message) return Promise.reject(err);
+        return Promise.reject({status : 403, message: errorMessage.PERMISION_DENY});
+      }); 
   },
 }
 
