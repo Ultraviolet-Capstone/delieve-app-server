@@ -7,6 +7,7 @@ const errorMessage = {
   'PERMISION_DENY' : '권한이 없습니다.',
   'MAL_PARMETER' : '파라미터가 불충분합니다.',
   'FAIL_LOGIN' : '로그인에 실패했습니다.',
-  'WRONG_PASSWORD' : '비밀번호가 틀렸습니다.'
+  'WRONG_PASSWORD' : '비밀번호가 틀렸습니다.',
+  'WRONG_ID' : '아이디가 없습니다.'
 }
 module.exports = errorMessage;

@@ -7,7 +7,7 @@ const adminQuery = {
                    WHERE user_name=?`;
     return pool.query(query, [userName])
       .then(result => {
-        if (result.length === 0) return Promise.reject({ status: 404, message: errorMessage.NO_ITEM_SEARCH });
+        if (result.length === 0) return Promise.reject({ status: 404, message: errorMessage.WRONG_ID });
         return result[0]['password'];
       })
       .catch(err => {
