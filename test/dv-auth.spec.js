@@ -74,7 +74,7 @@ describe('GET /auth/admin/token?userName=admin&password=admin_123&grantType=pass
 
 
 describe('GET /auth/user/login?token=123', () => {  
-  it('should respond with object that has property "accessToken" and with property "userInfo.delivable" : 1', (done) => {
+  it('should respond with object that has property "accessToken" and with property "userInfo.delivable" : 0', (done) => {
     request(app)
       .get('/auth/user/login?token=123')
       .expect(200)
@@ -84,7 +84,7 @@ describe('GET /auth/user/login?token=123', () => {
           return;
         }
         expect((res.body.accessToken !== '')).to.equal(true);
-        expect(res.body.userInfo.delivable).to.equal(1);
+        expect(res.body.userInfo.delivable).to.equal(0);
         done();
       });
   });

@@ -5,7 +5,10 @@ module.exports = {
     "db_password" : "mypassword",
     "db_port"     : 3306,
     "db_database" : "delieve",
-    "connection_limit" : 10
+    "connection_limit" : 10,
+    "access_key_id" : "AKIAJLPBAPCOWV46F75Q",
+    "secret_access_key" : "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",
+    "bucket": 'delieve-image-bucket',
   },
   "production" : {
     "db_host"     : process.env.RDS_HOSTNAME,
