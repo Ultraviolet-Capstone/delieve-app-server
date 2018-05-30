@@ -34,6 +34,7 @@ const dvMatchingQuery = {
       stuff.name AS stuffName,
       stuff.size AS stuffSize,
       stuff.weight AS stuffWeight,
+      stuff.stuff_code AS stuffCode,
       
       r.begin_time AS beginTime,  
       r.finish_time AS finishTime,
