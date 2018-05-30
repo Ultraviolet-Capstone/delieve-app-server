@@ -8,6 +8,8 @@ const errorMessage = {
   'MAL_PARMETER' : '파라미터가 불충분합니다.',
   'FAIL_LOGIN' : '로그인에 실패했습니다.',
   'WRONG_PASSWORD' : '비밀번호가 틀렸습니다.',
-  'WRONG_ID' : '아이디가 없습니다.'
+  'WRONG_ID' : '아이디가 없습니다.',
+  'MATCHING_ERROR': '매칭과정에서 오류가 생겼습니다',
+  'MATCHING_PREEMTIED': '이미 매칭 되었습니다',
 }
 module.exports = errorMessage;
