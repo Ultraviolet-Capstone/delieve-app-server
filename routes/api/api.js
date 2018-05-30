@@ -5,11 +5,9 @@ var router = express.Router();
 var dvGPS = require('./gps/dv-gps');
 var dvRequest = require('./request/dv-request');
 var dvQR = require('./qr/dv-qr');
-var dvMatching = require('./matching/dv-matching');
 
 router.use('/gps', dvGPS);
 router.use('/request', dvRequest);
 router.use('/qr', dvQR);
-router.use('/matching', dvMatching);
 
 module.exports = router;
