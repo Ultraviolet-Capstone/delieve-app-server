@@ -34,15 +34,18 @@ const authService = {
       token, 
     } = req.query;
 
+    var userInfo;
+
     return userQuery.findUserByTokne(mysqlPool, token)
       .then(rows => {
         if (rows.length == 0) {
           return Promise.reject({ status: 404, message: errorMessage.NO_ITEM_SEARCH})
         } 
+        userInfo = rows[0];
         return jwt.sign(generateSignObj(token, false), secretKey, {expiresIn: '1d'})
       })
       .then(jwtToken => {
-        return Promise.resolve({ accessToken: jwtToken });
+        return Promise.resolve({ accessToken: jwtToken, userInfo: userInfo });
       })
       .catch(err => {
         if(err.message) return Promise.reject(err);
