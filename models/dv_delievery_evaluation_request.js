@@ -1,8 +1,15 @@
 const delieveryEvaluationRequestQuery = {
   getDelieveryEvaluationRequestByFolderPath : function(pool, folderPath) {
-    const query = `SELECT * FROM delieve.dv_delievery_evaluation_request
+    const query = `SELECT folder_path as folderPath
+                   FROM delieve.dv_delievery_evaluation_request
                    WHERE folder_path=?`
     return pool.query(query, [folderPath]);
+  },
+  getDelieveryEvaluationRequestByUserId : function(pool, userId) {
+    const query = `SELECT folder_path as folderPath
+                   FROM delieve.dv_delievery_evaluation_request
+                   WHERE user_id=?`
+    return pool.query(query, [userId]);
   },
   insertDelieveryEvaluationRequest : function(pool, userId, folderPath) {
     const query = `INSERT INTO dv_delievery_evaluation_request
