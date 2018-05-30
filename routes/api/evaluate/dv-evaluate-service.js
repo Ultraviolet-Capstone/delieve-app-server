@@ -9,6 +9,7 @@ mysqlPool.generatePool();
 var errorMessage = require('../../../common/error/error-message');
 var config = require('../../../common/config/config')[process.env.NODE_ENV || 'development'];
 var delieveryEvaluationRequestQuery = require('../../../models/dv_delievery_evaluation_request');
+var userQuery = require('../../../models/dv-user-query');
 
 aws.config.region = 'ap-northeast-2';
 aws.config.update({
@@ -69,6 +70,14 @@ const evalulateService = {
   getSelfiFromS3 : function(req, res) {
     const userId = req.query.userId;
     return getImageFromS3(res, userId, 'selfi');
+  },
+  getSatus : function(req) {
+    const userId = req.query.userId;
+    return userQuery.getUserStatusByUserId(mysqlPool, userId)
+      .then((result, err) => {
+        if (err || result.length === 0) return Promise.reject(errorMessage.UNKOWN_ERROR);
+        return Promise.resolve(result[0]);
+      }); 
   },
   updateStatus : function(req) {
     const {userId, status} = req.body;

@@ -21,6 +21,21 @@ const userQuery = {
         return Promise.reject({ status: 500, message: err.Error });
       });
   },
+  getUserStatusByUserId : function(pool, userId) {
+    const query = `SELECT 
+                   CASE
+                    WHEN der.status = 'WAIT' THEN 1
+                    WHEN der.status = 'PASS' THEN 2
+                    WHEN der.status = 'SUSPEND' THEN 3
+                    WHEN der.status = 'DECLINE' THEN 4
+                   ELSE 0
+                   END AS delivable
+                   FROM delieve.dv_user u 
+                    LEFT JOIN dv_delievery_evaluation_request der 
+                    ON der.user_id = u.id 
+                   WHERE u.id = ?;`
+    return pool.query(query, [userId]);
+  },
   insertUser: function (pool,
     name,
     phone,
