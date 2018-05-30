@@ -20,6 +20,26 @@ router.post('/deliver', upload.fields(fields), (req, res, next) => {
     });
 });
 
+router.get('/deliver', (req, res, next) => {
+  evalulateService.getEvaluateInfo(req)
+    .then(result => {
+      res.status(200).json(result);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    })
+});
+
+router.get('/deliver/total', (req, res, next) => {
+  evalulateService.getEvaluateCnt(req)
+    .then(result => {
+      res.status(200).json({total: result});
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    })
+});
+
 router.get('/deliver/idcard', (req, res, next) => {
   evalulateService.getIdcardFromS3(req, res)
     .catch(err => {
@@ -29,6 +49,16 @@ router.get('/deliver/idcard', (req, res, next) => {
 
 router.get('/deliver/selfi', (req, res, next) => {
   evalulateService.getIdcardFromS3(req, res)
+    .catch(err => {
+      res.status(500).json({});
+    })
+});
+
+router.post('/deliver/status', (req, res, next) => {
+  evalulateService.updateStatus(req)
+    .then(result => {
+      res.status(200).json({});
+    })
     .catch(err => {
       res.status(500).json({});
     })

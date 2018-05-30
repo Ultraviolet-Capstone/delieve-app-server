@@ -30,6 +30,22 @@ const evalulateService = {
         return delieveryEvaluationRequestQuery.insertDelieveryEvaluationRequest(mysqlPool, userId, folderPath);
       })
   },
+  getEvaluateInfo : function(req) {
+    return delieveryEvaluationRequestQuery.getEvaluateInfo(mysqlPool)
+      .then((result, err) => {
+        if (err) return {};
+        if (result.length == 0)  return {};
+        return result[0];
+      })
+  },
+  getEvaluateCnt : function(req) {
+    return delieveryEvaluationRequestQuery.getEvaluateCnt(mysqlPool)
+      .then((result, err) => {
+        if (err) return Promise.reject({reason : errorMessage.UNKOWN_ERROR});
+        if (result.length == 0)  return Promise.reject({reason : errorMessage.NO_ITEM_SEARCH});
+        return result[0]['total'];
+      });
+  },
   uploadImages2S3 : function(files, folderPath) {
     const funcArr = [];
     for (var fileName in files) {
@@ -54,6 +70,10 @@ const evalulateService = {
     const userId = req.query.userId;
     return getImageFromS3(res, userId, 'selfi');
   },
+  updateStatus : function(req) {
+    const {userId, status} = req.body;
+    return delieveryEvaluationRequestQuery.updateStatus(mysqlPool, status, userId);
+  }
 }
 
 function getImageFromS3(res, userId, fileName) {
@@ -64,8 +84,7 @@ function getImageFromS3(res, userId, fileName) {
     })
     .then(result => {
       const folderPath = result['folderPath'];
-      const s3Url = config.buket_url + '/' + folderPath + '/' + fileName;
-      return rp(s3Url).pipe(res);
+      res.status(200).json({url : config.buket_url + '/' + folderPath + '/' + fileName});
     })
 }
 

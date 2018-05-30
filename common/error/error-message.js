@@ -11,5 +11,6 @@ const errorMessage = {
   'WRONG_ID' : '아이디가 없습니다.',
   'MATCHING_ERROR': '매칭과정에서 오류가 생겼습니다',
   'MATCHING_PREEMTIED': '이미 매칭 되었습니다',
+  'UNKOWN_ERROR' : '알수없는 에러'
 }
 module.exports = errorMessage;
