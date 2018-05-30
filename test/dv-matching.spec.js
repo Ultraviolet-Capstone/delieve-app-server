@@ -41,3 +41,38 @@ describe('POST /api/matching', () => {
       });
   });
 });
+
+
+// matching polling that matched
+describe('GET /api/matching?requestId=327', () => {  
+  it('should respond with code 200 with property "matchingId" that not null', (done) => {
+    request(app)
+      .get('/api/matching?requestId=327')
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          done(err);
+          return;
+        }
+        expect(!(res.body.matchingId == undefined)).to.equal(true);
+        done();
+      });
+  });
+});
+
+
+// matching polling that matched
+describe('GET /api/matching?requestId=-1', () => {  
+  it('should respond with code 404', (done) => {
+    request(app)
+      .get('/api/matching?requestId=-1')
+      .expect(404)
+      .end((err, res) => {
+        if (err) {
+          done(err);
+          return;
+        }
+        done();
+      });
+  });
+});

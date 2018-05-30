@@ -11,4 +11,13 @@ router.post('/', (req, res) => {
     });
 });
 
+router.get('/', (req, res) => {
+  dvMatchingService.findMatchByRequestId(req)
+    .then(result => {
+      res.status(200).json(result); 
+    })
+    .catch(err => {
+      res.status(err.status).send(err.message);
+    });
+});
 module.exports = router;

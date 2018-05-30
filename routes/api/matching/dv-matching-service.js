@@ -19,6 +19,17 @@ const dvMatchingService = {
         return Promise.reject({ status: err.status, message: err.message });
       }); 
   },
+  findMatchByRequestId: function (req) {
+    const { requestId } = req.query;
+
+    return dvMatchingQuery.findMatchingByRequestId(mysqlPool, requestId)
+      .then(rows => {
+        if (rows.length == 0) {
+          return Promise.reject({ status: 404, message: errorMessage.NO_ITEM_SEARCH });
+        }
+        return Promise.resolve(rows[0]);
+      }); 
+  }
 };
 
 module.exports = dvMatchingService;
