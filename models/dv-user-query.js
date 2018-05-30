@@ -5,7 +5,10 @@ const userQuery = {
     const query = `
     SELECT u.id, u.name, u.phone, u.email, u.birthday, u.gender,
     CASE
-    WHEN der.status = 'PASS' THEN 1
+    WHEN der.status = 'WAIT' THEN 1
+    WHEN der.status = 'PASS' THEN 2
+    WHEN der.status = 'SUSPEND' THEN 3
+    WHEN der.status = 'DECLINE' THEN 4
     ELSE 0
     END AS delivable
     FROM delieve.dv_user u 
