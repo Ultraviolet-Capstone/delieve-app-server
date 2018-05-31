@@ -48,7 +48,7 @@ router.get('/deliver/idcard', (req, res, next) => {
 });
 
 router.get('/deliver/selfi', (req, res, next) => {
-  evalulateService.getIdcardFromS3(req, res)
+  evalulateService.getSelfiFromS3(req, res)
     .catch(err => {
       res.status(500).json({});
     })
