@@ -7,7 +7,7 @@ const dvRequestService = {
     const dvRequest = req.body;
     return dvRequestQuery.insertRequest(mysqlPool, dvRequest)
       .then(result => {
-        return result['insertId'];
+        return result[0][0]['requestId'];
       })
   }
 }
