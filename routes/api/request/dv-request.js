@@ -5,7 +5,7 @@ var router = express.Router();
 router.post('/', (req, res, next) => {
   dvRequestService.insertRequest(req)
     .then(result => {
-      res.status(200).send();
+      res.status(200).send(result);
     })
     .catch(err => {
       return res.status(500).send(err);

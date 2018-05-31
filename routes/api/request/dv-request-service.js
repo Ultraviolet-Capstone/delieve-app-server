@@ -5,7 +5,10 @@ mysqlPool.generatePool();
 const dvRequestService = {
   insertRequest: function (req) {
     const dvRequest = req.body;
-    return dvRequestQuery.insertRequest(mysqlPool, dvRequest);
+    return dvRequestQuery.insertRequest(mysqlPool, dvRequest)
+      .then(result => {
+        return result['insertId'];
+      })
   }
 }
 module.exports = dvRequestService;
