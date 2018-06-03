@@ -29,7 +29,18 @@ const dvMatchingService = {
         }
         return Promise.resolve(rows[0]);
       }); 
-  }
+  },
+  findMatchByMatchingId: function (req) {
+    const { id } = req.params;
+
+    return dvMatchingQuery.findMatchingByMatchingId(mysqlPool, id)
+      .then(rows => {
+        if (rows.length == 0) {
+          return Promise.reject({ status: 404, message: errorMessage.NO_ITEM_SEARCH });
+        }
+        return Promise.resolve(rows[0]);
+      }); 
+  },
 };
 
 module.exports = dvMatchingService;
