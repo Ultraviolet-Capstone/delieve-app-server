@@ -22,7 +22,7 @@ const dvMatchingQuery = {
   findMatchingByRequestId: function(pool, requestId) {
     const query = `
     SELECT 
-      r.id as matchingId,
+      m.id as matchingId,
       bl.address AS beginAddress,
       bg.latitude AS beginLatitude,
       bg.longitude AS beginLongitude, 
