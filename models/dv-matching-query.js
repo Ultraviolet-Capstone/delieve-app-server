@@ -43,6 +43,8 @@ const dvMatchingQuery = {
       deliverer.phone AS delivererPhone,
       deliverer.email AS delivererEmail,
       deliverer.provider_selfi_url AS delivererSelfiURL,
+
+      reciever.phone AS recieverPhone,
       
       (6371*acos(cos(radians(fg.latitude))*cos(radians(bg.latitude))*cos(radians(bg.longitude)
       -radians(fg.longitude))+sin(radians(fg.latitude))*sin(radians(bg.latitude)))) AS distance
@@ -67,6 +69,9 @@ const dvMatchingQuery = {
               
               JOIN dv_user deliverer
               ON deliverer.id = m.deliver_id
+          
+          JOIN dv_reciever reciever
+          ON reciever.id = r.reciever_id
 
         WHERE 
         m.dv_request_id = ?
