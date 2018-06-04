@@ -66,7 +66,23 @@ const dvMatchingService = {
         if(err.message) return Promise.reject(err);
         return Promise.reject({status : 500, message: errorMessage.INTERNAL_ERROR});
       });
-  }
+  },
+  findStatusByMatchingId: function(req) {
+    const { id } = req.params; 
+
+    return dvMatchingQuery.findStatusByMatchingId(mysqlPool, id)
+      .then(rows => {
+        if (rows.length == 0) {
+          return Promise.reject({ status: 404, message: errorMessage.NO_ITEM_SEARCH})
+        } 
+        return Promise.resolve(rows[0]);
+      })
+      .catch(err => {
+        if(err.message) return Promise.reject(err);
+        return Promise.reject({status : 500, message: errorMessage.INTERNAL_ERROR});
+      });
+
+  },
 };
 
 module.exports = dvMatchingService;

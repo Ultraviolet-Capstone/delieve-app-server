@@ -84,7 +84,7 @@ const dvMatchingQuery = {
 
     return pool.query(query, parameters)
       .catch(err => {
-        Promise.reject({ status: 500, message: errorMessage.INTERNAL_ERROR });
+        return Promise.reject({ status: 500, message: errorMessage.INTERNAL_ERROR });
       });
   },
   findMatchingByMatchingId: function(pool, matchingId) {
@@ -155,7 +155,7 @@ const dvMatchingQuery = {
 
     return pool.query(query, parameters)
       .catch(err => {
-        Promise.reject({ status: 500, message: errorMessage.INTERNAL_ERROR });
+        return Promise.reject({ status: 500, message: errorMessage.INTERNAL_ERROR });
       });
   },
   getAllMatching: function(pool) {
@@ -226,7 +226,7 @@ const dvMatchingQuery = {
 
     return pool.query(query, parameters)
       .catch(err => {
-        Promise.reject({ status: 500, message: errorMessage.INTERNAL_ERROR });
+        return Promise.reject({ status: 500, message: errorMessage.INTERNAL_ERROR });
       });
 
   },
@@ -303,7 +303,19 @@ const dvMatchingQuery = {
 
     return pool.query(query, parameters)
       .catch(err => {
-        Promise.reject({ status: 500, message: errorMessage.INTERNAL_ERROR });
+        return Promise.reject({ status: 500, message: errorMessage.INTERNAL_ERROR });
+      });
+  },
+  findStatusByMatchingId: function(pool, id) {
+    const query = `
+    SELECT m.status AS status FROM dv_matching m
+    WHERE m.id = ?
+    `;
+    const parameters = [ id ];
+
+    return pool.query(query, parameters)
+      .catch(err => {
+        return Promise.reject({ status: 500, message: errorMessage.INTERNAL_ERROR });
       });
   },
 };
