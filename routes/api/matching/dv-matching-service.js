@@ -33,13 +33,24 @@ const dvMatchingService = {
   findMatchByMatchingId: function (req) {
     const { id } = req.params;
 
-    return dvMatchingQuery.findMatchingByMatchingId(mysqlPool, id)
-      .then(rows => {
-        if (rows.length == 0) {
-          return Promise.reject({ status: 404, message: errorMessage.NO_ITEM_SEARCH });
-        }
-        return Promise.resolve(rows[0]);
-      }); 
+    if (id == 'all') {
+      return dvMatchingQuery.getAllMatching(mysqlPool)
+        .then(rows => {
+          if (rows.length == 0) {
+            return Promise.reject({ status: 404, message: errorMessage.NO_ITEM_SEARCH });
+          }
+          return Promise.resolve(rows);
+        }); 
+    }
+    else {
+      return dvMatchingQuery.findMatchingByMatchingId(mysqlPool, id)
+        .then(rows => {
+          if (rows.length == 0) {
+            return Promise.reject({ status: 404, message: errorMessage.NO_ITEM_SEARCH });
+          }
+          return Promise.resolve(rows[0]);
+        }); 
+    } 
   },
 };
 
