@@ -52,6 +52,21 @@ const dvMatchingService = {
         }); 
     } 
   },
+  getMathingListByUserId: function(req) { 
+    const { userId } = req.params;
+
+    return dvMatchingQuery.getMatchingListByUserId(mysqlPool, userId)
+      .then(rows => {
+        if (rows.length == 0) {
+          return Promise.reject({ status: 404, message: errorMessage.NO_ITEM_SEARCH})
+        } 
+        return Promise.resolve(rows);
+      })
+      .catch(err => {
+        if(err.message) return Promise.reject(err);
+        return Promise.reject({status : 500, message: errorMessage.INTERNAL_ERROR});
+      });
+  }
 };
 
 module.exports = dvMatchingService;

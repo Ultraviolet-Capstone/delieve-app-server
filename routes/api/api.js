@@ -7,11 +7,13 @@ var dvRequest = require('./request/dv-request');
 var dvQR = require('./qr/dv-qr');
 var dvEvaluate = require('./evaluate/dv-evaluate');
 var dvMatching = require('./matching/dv-matching');
+var dvUser = require('./user/dv-user');
 
 router.use('/gps', dvGPS);
 router.use('/request', dvRequest);
 router.use('/qr', dvQR);
 router.use('/evaluate', dvEvaluate);
 router.use('/matching', dvMatching);
+router.use('/user', dvUser);
 
 module.exports = router;
