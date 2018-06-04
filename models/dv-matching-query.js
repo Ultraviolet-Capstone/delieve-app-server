@@ -45,6 +45,8 @@ const dvMatchingQuery = {
       deliverer.provider_selfi_url AS delivererSelfiURL,
 
       reciever.phone AS recieverPhone,
+
+      m.status AS matchingStatus,
       
       (6371*acos(cos(radians(fg.latitude))*cos(radians(bg.latitude))*cos(radians(bg.longitude)
       -radians(fg.longitude))+sin(radians(fg.latitude))*sin(radians(bg.latitude)))) AS distance
@@ -114,6 +116,8 @@ const dvMatchingQuery = {
       deliverer.provider_selfi_url AS delivererSelfiURL, 
           
       reciever.phone AS recieverPhone,
+
+      m.status AS matchingStatus,
           
       (6371*acos(cos(radians(fg.latitude))*cos(radians(bg.latitude))*cos(radians(bg.longitude)
       -radians(fg.longitude))+sin(radians(fg.latitude))*sin(radians(bg.latitude)))) AS distance
@@ -185,6 +189,8 @@ const dvMatchingQuery = {
       deliverer.provider_selfi_url AS delivererSelfiURL, 
           
       reciever.phone AS recieverPhone,
+
+      m.status AS matchingStatus,
           
       (6371*acos(cos(radians(fg.latitude))*cos(radians(bg.latitude))*cos(radians(bg.longitude)
       -radians(fg.longitude))+sin(radians(fg.latitude))*sin(radians(bg.latitude)))) AS distance
@@ -258,6 +264,8 @@ const dvMatchingQuery = {
       deliverer.provider_selfi_url AS delivererSelfiURL,
           
       reciever.phone AS recieverPhone,
+
+      m.status AS matchingStatus,
           
       (6371*acos(cos(radians(fg.latitude))*cos(radians(bg.latitude))*cos(radians(bg.longitude)
       -radians(fg.longitude))+sin(radians(fg.latitude))*sin(radians(bg.latitude)))) AS distance
