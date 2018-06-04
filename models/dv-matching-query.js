@@ -108,6 +108,10 @@ const dvMatchingQuery = {
       sender.phone AS senderPhone,
       sender.email AS sdnerEmail,
       sender.provider_selfi_url AS senderSelfiURL,
+      deliverer.name AS delivererName,
+      deliverer.phone AS delivererPhone,
+      deliverer.email AS delivererEmail,
+      deliverer.provider_selfi_url AS delivererSelfiURL, 
           
       reciever.phone AS recieverPhone,
           
@@ -133,7 +137,10 @@ const dvMatchingQuery = {
       ON stuff.id = r.stuff_id 
                 
       JOIN dv_user sender
-      ON sender.id = m.deliver_id
+      ON sender.id = r.sender_id
+
+      JOIN dv_user deliverer
+      ON deliverer.id = m.deliver_id
           
           JOIN dv_reciever reciever
           ON reciever.id = r.reciever_id
