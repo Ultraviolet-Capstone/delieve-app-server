@@ -54,8 +54,11 @@ const dvMatchingService = {
   },
   getMathingListByUserId: function(req) { 
     const { userId } = req.params;
+    const { isDeliverer } = req.query;
 
-    return dvMatchingQuery.getMatchingListByUserId(mysqlPool, userId)
+    console.log(req.query);
+
+    return dvMatchingQuery.getMatchingListByUserId(mysqlPool, userId, isDeliverer)
       .then(rows => {
         if (rows.length == 0) {
           return Promise.reject({ status: 404, message: errorMessage.NO_ITEM_SEARCH})

@@ -230,7 +230,7 @@ const dvMatchingQuery = {
       });
 
   },
-  getMatchingListByUserId: function(pool, userId) {
+  getMatchingListByUserId: function(pool, userId, isDeliverer) {
     const query = `
     SELECT 
       m.id AS matchingId,
@@ -299,7 +299,14 @@ const dvMatchingQuery = {
       WHERE m.deliver_id = ? or r.sender_id = ?;
     `;
 
-    const parameters = [userId, userId];
+    var parameters = [];
+
+    if (isDeliverer) {
+      parameters = [userId, -1];
+    }
+    else {
+      parameters = [-1, userId]; 
+    }
 
     return pool.query(query, parameters)
       .catch(err => {
