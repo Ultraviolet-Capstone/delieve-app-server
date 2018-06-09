@@ -9,7 +9,8 @@ module.exports = {
     "access_key_id" : "AKIAJLPBAPCOWV46F75Q",
     "secret_access_key" : "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",
     "bucket": 'delieve-image-bucket',
-    "buket_url" : 'https://s3.ap-northeast-2.amazonaws.com/delieve-image-bucket'
+    "buket_url" : 'https://s3.ap-northeast-2.amazonaws.com/delieve-image-bucket',
+    "fcm_app_key" : "AIzaSyArBpJHk6C_NH7AHnTpwGs3Kd_g-wxuddM",
   },
   "production" : {
     "db_host"     : process.env.RDS_HOSTNAME,
