@@ -32,6 +32,7 @@ const authService = {
   loginUserByToken: function(req) {
     const { 
       token, 
+      pushToken,
     } = req.query;
 
     var userInfo;
@@ -42,6 +43,13 @@ const authService = {
           return Promise.reject({ status: 404, message: errorMessage.NO_ITEM_SEARCH})
         } 
         userInfo = rows[0];
+        return Promise.resolve(userInfo.id);
+      })
+      .then(userId => {
+        return userQuery.updatePushToken(mysqlPool, pushToken, userId);
+      })
+      .then(updateResult => {
+
         return jwt.sign(generateSignObj(token, false), secretKey, {expiresIn: '1d'})
       })
       .then(jwtToken => {

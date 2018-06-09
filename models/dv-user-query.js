@@ -87,5 +87,32 @@ const userQuery = {
         return Promise.reject({ status: 500, message: errorMessage.INSERT_ERROR });
       });
   },
+  updatePushToken: function(pool, pushToken, userId) {
+    const query = `
+    UPDATE dv_user u
+    SET u.push_token = ?
+    WHERE u.id = ?
+    `;
+    const parameters = [pushToken, userId];
+
+    return pool.query(query, parameters)
+      .catch(err => {
+        return Promise.reject({ status: 500, message: errorMessage.UPDATE_ERROR });
+      });
+  },
+  getPushTokenById: function(pool, userId){
+    const query = `
+    SELECT u.push_token AS pushToken
+    FROM dv_user u
+    WHERE u.id = ?
+    `;
+
+    const parameters = [userId];
+
+    return pool.query(query, parameters)
+      .catch(err => {
+        return Promise.reject({ status: 500, message: errorMessage.INTERNAL_ERROR });
+      });
+  }
 }
 module.exports = userQuery;

@@ -11,6 +11,8 @@ var config = require('../../../common/config/config')[process.env.NODE_ENV || 'd
 var delieveryEvaluationRequestQuery = require('../../../models/dv_delievery_evaluation_request');
 var userQuery = require('../../../models/dv-user-query');
 
+var fcmPushModule = require('../../../common/fcm-push');
+
 aws.config.region = 'ap-northeast-2';
 aws.config.update({
   accessKeyId: config.access_key_id,
@@ -81,7 +83,13 @@ const evalulateService = {
   },
   updateStatus : function(req) {
     const {userId, status} = req.body;
-    return delieveryEvaluationRequestQuery.updateStatus(mysqlPool, status, userId);
+    return delieveryEvaluationRequestQuery.updateStatus(mysqlPool, status, userId)
+      .then(result => {
+        if (status == 'PASS') {
+          // push to client
+          return fcmPushModule.push(userId, '배달원 심사 통과', '축하드립니다 배달원 심사에 통과하셨습니다. 이제 자유롭게 배달가능한 요청들을 확인해 보세요!')
+        }
+      });
   }
 }
 
