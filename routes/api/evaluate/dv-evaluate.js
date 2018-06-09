@@ -75,4 +75,40 @@ router.post('/deliver/status', (req, res, next) => {
     })
 });
 
+router.get('/push-test', (req, res) => {
+
+  const { appToken } = req.query;
+
+  if (appToken == undefined) {
+    return res.status(406).send("You should send Request with APP TOKEN KEY");
+  }
+
+
+  var FCM = require('fcm-node');
+  var serverKey = require('../../../common/config/config').development.fcm_app_key;
+
+  var fcm = new FCM(serverKey);
+
+  var message = {
+    to: appToken, // required fill with device token or topics
+    // collapse_key: 'your_collapse_key', 
+    data: {
+        EvaluationData: true
+    },
+    notification: {
+        title: 'Evaluation Push Message',
+        body: 'Evaluation Done'
+    }
+  };
+
+  fcm.send(message, (err, pushResponse) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    else {
+      res.status(200).send("done" + pushResponse);
+    }
+  });
+});
+
 module.exports = router;
