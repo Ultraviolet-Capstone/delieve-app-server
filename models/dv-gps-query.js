@@ -28,6 +28,25 @@ const dvGPSQuery = {
     SELECT g.latitude, g.longitude, g.gps_created
     FROM dv_gps g
     WHERE g.matching_id=?
+    ORDER BY g.gps_created desc
+    LIMIT 1
+    `;
+    const parameters = [matchingId];
+    return pool.query(query, parameters)
+    .then(result => {
+      if (result.length === 0) {
+        return Promise.resolve([]);
+      }
+      else { 
+        return Promise.resolve(result[0]);
+      }
+    })
+  },
+  gpsListByMatchingId: function(pool, matchingId) { 
+    const query = `
+    SELECT g.latitude, g.longitude, g.gps_created
+    FROM dv_gps g
+    WHERE g.matching_id=?
     `;
     const parameters = [matchingId];
     return pool.query(query, parameters)

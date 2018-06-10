@@ -21,11 +21,22 @@ const dvGPSService = {
     var matchingId = parseInt(req.params.id);
     return dvGPSQuery.gpsByMatchingId(mysqPool, matchingId)
       .then(result => {
+        return Promise.resolve(result); 
+      })
+      .catch(err => {
+        return Promise.reject({ status: 500, message: err.Error});
+      })
+  },
+  gpsListByMatchingId: function(req) {
+    var matchingId = parseInt(req.params.id);
+    return dvGPSQuery.gpsListByMatchingId(mysqPool, matchingId)
+      .then(result => {
         return Promise.resolve({ gpsList: result, matchingId: matchingId }); 
       })
       .catch(err => {
         return Promise.reject({ status: 500, message: err.Error});
       })
   }
+
 }
 module.exports = dvGPSService;

@@ -32,4 +32,13 @@ router.get('/tracking/:id', (req, res) => {
     });
 });
 
+router.get('/history/:id', (req, res) => {
+  dvGPSService.gpsListByMatchingId(req)
+    .then(result => {
+      res.status(200).json(result); 
+    })
+    .catch(err => {
+      res.status(err.status).send(err.message);
+    });
+});
 module.exports = router;
