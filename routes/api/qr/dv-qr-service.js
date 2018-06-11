@@ -43,7 +43,7 @@ const dvQRService = {
       })
       .then(status => {
         returnStatus = status;
-        if (returnStatus == 'PROGRESS' && !process.env.dev) {
+        if (returnStatus == 'PROGRESS' && !Number(process.env.dev)) {
           var url = "http://13.125.124.127:4200/qr/" + matchingId;
           phone = phone.replace('-', '').trim();
           return sms.send({
