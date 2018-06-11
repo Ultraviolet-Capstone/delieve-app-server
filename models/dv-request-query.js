@@ -19,7 +19,7 @@ const dvRequestQuery = {
       dvRequest.recieverPhoneNumber,
       dvRequest.beginTime, dvRequest.finishTime,
       dvRequest.stuff.name, dvRequest.stuff.size, dvRequest.stuff.weight, dvRequest.stuff.stuffCode,
-      dvRequest.stuff.price
+      dvRequest.price
     ];
 
     if (parameter.includes(undefined)) {
