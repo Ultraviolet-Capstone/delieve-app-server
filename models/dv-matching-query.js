@@ -38,6 +38,8 @@ const dvMatchingQuery = {
       
       r.begin_time AS beginTime,  
       r.finish_time AS finishTime,
+
+      r.price AS price,
       
       deliverer.name AS delivererName,
       deliverer.phone AS delivererPhone,
@@ -105,6 +107,8 @@ const dvMatchingQuery = {
           
       r.begin_time AS beginTime,  
       r.finish_time AS finishTime,
+
+      r.price AS price,
       
       sender.name AS senderName,
       sender.phone AS senderPhone,
@@ -178,6 +182,8 @@ const dvMatchingQuery = {
           
       r.begin_time AS beginTime,  
       r.finish_time AS finishTime,
+
+      r.price AS price,
       
       sender.name AS senderName,
       sender.phone AS senderPhone,
@@ -250,6 +256,8 @@ const dvMatchingQuery = {
           
       r.begin_time AS beginTime,  
       r.finish_time AS finishTime,
+
+      r.price AS price,
       
       sender.id AS senderId,
       sender.name AS senderName,

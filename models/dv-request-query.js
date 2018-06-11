@@ -8,7 +8,8 @@ const dvRequestQuery = {
         ?,
         ?,
         ?, ?,
-        ?, ?, ?, ?
+        ?, ?, ?, ?,
+        ?
     )`;
 
     const parameter = [
@@ -17,7 +18,8 @@ const dvRequestQuery = {
       dvRequest.senderId,
       dvRequest.recieverPhoneNumber,
       dvRequest.beginTime, dvRequest.finishTime,
-      dvRequest.stuff.name, dvRequest.stuff.size, dvRequest.stuff.weight, dvRequest.stuff.stuffCode
+      dvRequest.stuff.name, dvRequest.stuff.size, dvRequest.stuff.weight, dvRequest.stuff.stuffCode,
+      dvRequest.stuff.price
     ];
 
     if (parameter.includes(undefined)) {
