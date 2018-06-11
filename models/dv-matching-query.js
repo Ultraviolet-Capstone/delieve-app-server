@@ -309,6 +309,8 @@ const dvMatchingQuery = {
 
     var parameters = [];
 
+    isDeliverer = parseInt(isDeliverer);
+
     if (isDeliverer) {
       parameters = [userId, -1];
     }
