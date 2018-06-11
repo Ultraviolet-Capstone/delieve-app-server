@@ -2,7 +2,11 @@ var errorMessage = require('../common/error/error-message')
 
 const dvQRQuery = {
   selectMatchingByIdStatus : (pool, matchingId, status) => {
-    const query = `SELECT * FROM dv_matching m
+    const query = `SELECT m.*, rr.phone AS recieverPhone FROM dv_matching m
+    JOIN dv_request r
+    ON r.id = m.dv_request_id
+    JOIN dv_reciever rr
+    ON rr.id = r.reciever_id
     WHERE
     m.id = ?
     and m.status = ? 

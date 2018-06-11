@@ -2,6 +2,7 @@ var dvQRQuery = require('../../../models/dv-qr-query');
 var mysqlPool = require('../../../common/database/mysql');
 var errorMessage = require('../../../common/error/error-message')
 var crypto = require('crypto');
+var sms = require('../../../common/sms');
 mysqlPool.generatePool();
 
 
@@ -15,17 +16,20 @@ const dvQRService = {
       })
   },
   postQRURL: function (matchingId, hashValue, status) {
-
+    var phone = "";
+    var returnStatus = "";
     return dvQRQuery.selectMatchingByIdStatus(mysqlPool, matchingId, status)
       .then(result => {
-        const { id, status } = result;
+        const { id, status, recieverPhone } = result;
+        phone = recieverPhone;
         var originString = ([result.id , result.dv_request_id , result.deliver_id , result.status , result.time_log_id].join(''));
         var originHash = crypto.createHash('md5').update(originString).digest("hex");
 
         if (hashValue === originHash) {
           var newStatus = '';
-          if (status == 'READY')
-            newStatus = 'PROGRESS';
+          if (status == 'READY') { 
+            newStatus = 'PROGRESS'; 
+          }
           else if (status == 'PROGRESS')
             newStatus = 'FINISH';
 
@@ -38,7 +42,21 @@ const dvQRService = {
         return dvQRQuery.updateMatchingStatus(mysqlPool, matchingId, newStatus);
       })
       .then(status => {
-        return Promise.resolve({ id: matchingId, status: status });
+        returnStatus = status;
+        if (returnStatus == 'PROGRESS') {
+          var url = "http://13.125.124.127:4200/qr/" + matchingId;
+          phone = phone.replace('-', '').trim();
+          return sms.send({
+            msg: url,
+            mobile: phone
+          }); 
+        }
+        else {
+          return Promise.resolve(returnStatus);
+        }
+      })
+      .then(result => {
+        return Promise.resolve({ id: matchingId, status: returnStatus });
       }); 
   }
 }
