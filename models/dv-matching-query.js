@@ -335,6 +335,22 @@ const dvMatchingQuery = {
         return Promise.reject({ status: 500, message: errorMessage.INTERNAL_ERROR });
       });
   },
+  findReceiverByMathingIdAndPhoneNumber: function(pool, phoneNumber, id) {
+    const query = `
+      SELECT re.phone
+      FROM dv_matching as m
+        JOIN dv_request as r
+          ON r.id = m.dv_request_id
+        JOIN dv_reciever as re
+          ON re.id = r.reciever_id
+      WHERE re.phone=?
+      AND m.id=?;`;
+    const parameters = [ phoneNumber, id ];
+    return pool.query(query, parameters)
+      .catch(err => {
+        return Promise.reject({ status: 500, message: errorMessage.INTERNAL_ERROR });
+      })
+  }
 };
 
 module.exports = dvMatchingQuery;

@@ -1,9 +1,12 @@
 var jwt = require('jsonwebtoken')
+var crypto = require('crypto');
 
 var errorMessage = require('../../common/error/error-message');
 var common = require('../../common/common');
 var adminQuery = require('../../models/dv-admin-query')
 var userQuery = require('../../models/dv-user-query')
+var matchingQuery = require('../../models/dv-matching-query');
+var dvQRQuery = require('../../models/dv-qr-query');
 
 var mysqlPool = require('../../common/database/mysql');
 mysqlPool.generatePool();
@@ -49,7 +52,6 @@ const authService = {
         return userQuery.updatePushToken(mysqlPool, pushToken, userId);
       })
       .then(updateResult => {
-
         return jwt.sign(generateSignObj(token, false), secretKey, {expiresIn: '1d'})
       })
       .then(jwtToken => {
@@ -59,6 +61,29 @@ const authService = {
         if(err.message) return Promise.reject(err);
         return Promise.reject({status : 403, message: errorMessage.PERMISION_DENY});
       }); 
+  },
+  loginReceiver : function(req) {
+    const {
+      phoneNumber,
+      matchingId
+    } = req.query;
+
+    if (!common.checkParameters([phoneNumber, matchingId])) {
+      return Promise.reject({status: 403, message: errorMessage.PERMISION_DENY});
+    }
+
+    return matchingQuery.findReceiverByMathingIdAndPhoneNumber(mysqlPool, phoneNumber, matchingId)
+      .then(result => {
+        if (result.length == 0) {
+          return Promise.reject({ status: 404, message: errorMessage.NO_ITEM_SEARCH});
+        }
+        return dvQRQuery.selectMatchingByIdStatus(mysqlPool, matchingId, "PROGRESS");
+      })
+      .then(result => { 
+        var originString = ([result.id , result.dv_request_id , result.deliver_id , result.status , result.time_log_id].join(''));
+        var hashValue = crypto.createHash('md5').update(originString).digest("hex");
+        return Promise.resolve({ id: parseInt(matchingId), hashValue: hashValue });
+      });
   },
   registerUser: function(req) {
     const {

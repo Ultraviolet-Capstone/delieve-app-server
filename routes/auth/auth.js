@@ -23,6 +23,17 @@ router.get('/user/login', (req, res) => {
     });
 });
 
+router.get('/receiver/token', (req, res) => {
+  authService.loginReceiver(req)
+    .then(result => {
+      res.status(200).json(result);
+    })
+    .catch(err => {
+      res.status(err.status).send(err.message);
+    });
+});
+
+
 router.post('/user/register', (req, res) => {
   authService.registerUser(req)
     .then(result => {
