@@ -26,6 +26,19 @@ const dvRequestQuery = {
       return Promise.reject(errorMessage.INSERT_ERROR);
     } 
     return pool.query(query, parameter)
+  },
+  updateStatus: (pool, requestId, status) => {
+    const query = `
+    UPDATE dv_request r
+    SET r.status = ?
+    WHERE r.id = ?
+    `;
+    const parameter = [status, requestId];
+
+    return pool.query(query, parameter)
+      .catch(err => {
+        return Promise.reject({status: 500, message: errorMessage.UPDATE_ERROR});
+      });
   }
 }
 

@@ -57,6 +57,9 @@ const dvQRService = {
       })
       .then(result => {
         return Promise.resolve({ id: matchingId, status: returnStatus });
+      })
+      .catch(err => {
+        return Promise.reject({status: 500, message: errorMessage.INTERNAL_ERROR});
       }); 
   }
 }

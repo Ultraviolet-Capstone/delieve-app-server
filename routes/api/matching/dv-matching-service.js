@@ -1,4 +1,5 @@
 var dvMatchingQuery = require('../../../models/dv-matching-query');
+var dvRequestQuery = require('../../../models/dv-request-query');
 var mysqlPool = require('../../../common/database/mysql');
 var errorMessage = require('../../../common/error/error-message');
 mysqlPool.generatePool();
@@ -7,13 +8,19 @@ const dvMatchingService = {
   matchNewRequest: function (req) {
     const { delivererId, requestId, time } = req.body;
 
+    var matchingId;
+
     if (delivererId == undefined || requestId == undefined || time == undefined) {
       return Promise.reject({ status: 412, message: errorMessage.MAL_PARMETER });
     }
 
     return dvMatchingQuery.matchNewRequest(mysqlPool, delivererId, requestId, time)
       .then(result => {
-        return Promise.resolve({ delivererId: delivererId, matchingId: result.matchingId }); 
+        matchingId = result.matchingId;
+        return dvRequestQuery.updateStatus(mysqlPool, requestId, 'MATCHED');
+      })
+      .then(requestUpdate => {
+        return Promise.resolve({ delivererId: delivererId, matchingId: matchingId }); 
       })
       .catch(err => {
         return Promise.reject({ status: err.status, message: err.message });
