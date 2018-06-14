@@ -16,7 +16,7 @@ const dvMatchingService = {
 
     return dvMatchingQuery.matchNewRequest(mysqlPool, delivererId, requestId, time)
       .then(result => {
-        matchingId = result.matchingId;
+        matchingId = result[0][0].matchingId;
         return dvRequestQuery.updateStatus(mysqlPool, requestId, 'MATCHED');
       })
       .then(requestUpdate => {
