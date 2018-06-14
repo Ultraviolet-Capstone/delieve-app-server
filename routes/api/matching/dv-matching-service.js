@@ -13,7 +13,7 @@ const dvMatchingService = {
 
     return dvMatchingQuery.matchNewRequest(mysqlPool, delivererId, requestId, time)
       .then(result => {
-        return Promise.resolve({ delivererId: delivererId }); 
+        return Promise.resolve({ delivererId: delivererId, matchingId: result.matchingId }); 
       })
       .catch(err => {
         return Promise.reject({ status: err.status, message: err.message });
